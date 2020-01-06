@@ -1,45 +1,8 @@
+module OrderSystem
+
+open ModelOrderSystem
 open System
 
-type QuantityRequested = QuantityRequested of int
-
-type QuantityAvailable = QuantityAvailable of int
-
-type Reference = string
-
-type CodeProduct = string
-
-type Money = Money of float
-
-type Product =
-    { Reference: Reference
-      CodeProduct: CodeProduct }
-
-type RequestAvailability =
-    { Product: Product
-      QuantityRequested: QuantityRequested }
-
-type ResponseAvailability =
-    { Product: Product
-      QuantityAvailable: QuantityAvailable
-      Price: Money }
-
-type Quote =
-    { Request: RequestAvailability
-      Response: ResponseAvailability }
-
-type Order =
-    { Product: Product
-      Quantity: QuantityRequested }
-
-type Purchase =
-    { Product: Product
-      Quantity: QuantityRequested
-      Price: Money
-      DateDelivery: DateTime }
-
-type StatusOrder =
-    | OutofStock
-    | Confirmed of Purchase
 
 let availabilities qty product =
 
@@ -90,12 +53,3 @@ let attemptBuying quote =
         |> purchaseOrder
     | _ -> OutofStock
 
-
-
-
-//call
-let boulon =
-    { Reference = "WA123"
-      CodeProduct = "12345" }
-let quote = availabilities 2 boulon
-quote |> Option.map (attemptBuying)

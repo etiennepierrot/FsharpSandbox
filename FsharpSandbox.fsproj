@@ -4,7 +4,8 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="OrderSystem.fsx" />
+    <Compile Include="ModelOrderSystem.fs" />
+    <Compile Include="OrderSystem.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
