@@ -52,4 +52,3 @@ let attemptBuying quote =
         |> toOrder
         |> purchaseOrder
     | _ -> OutofStock
-
