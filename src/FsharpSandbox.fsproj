@@ -4,11 +4,17 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ModelOrderSystem.fs" />
-    <Compile Include="OrderSystem.fs" />
+    <Compile Include="Spotify\Credentials.fs" />
+    <Compile Include="Spotify\SampleListTracks.fs" />
+    <Compile Include="Spotify\Authorization.fs" />
+    <Compile Include="Spotify\SpotifyConnector.fs" />
+    <Compile Include="Spotify\PlaylistFetcher.fs" />
+    <Compile Include="OrderSystem\ModelOrderSystem.fs" />
+    <Compile Include="OrderSystem\OrderSystem.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="http.fs" Version="5.3.0" />
   </ItemGroup>
+  <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

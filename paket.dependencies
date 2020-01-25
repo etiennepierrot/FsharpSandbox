@@ -8,4 +8,5 @@ nuget Expecto
 nuget Expecto.BenchmarkDotNet
 nuget Expecto.FsCheck
 nuget Expecto.Hopac
+nuget FSharp.Data 3.3.3
 nuget Logary.Adapters.Facade

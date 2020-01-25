@@ -1,18 +1,18 @@
 module Tests
-open ModelOrderSystem
-open OrderSystem
+open OrderSystem.Request
+open OrderSystem.ModelOrderSystem
 open Expecto
 
 [<Tests>]
 let tests =
   testList "samples" [
 
-    testCase "achete 2 boulons" <| fun _ ->
+    testAsync "achete 2 boulons"  { 
       let boulon = { 
                       Product.Reference = "WA123"
                       CodeProduct = "12345" 
                     }
-      let quote = availabilities 5 boulon
+      let! quote =  availabilities 5 boulon
       
       Expect.equal quote (Some {
         Request = {
@@ -21,9 +21,12 @@ let tests =
                     }
         Response = {
                     Product = boulon
-                    QuantityAvailable = QuantityAvailable 2;
+                    QuantityAvailable = QuantityAvailable 2
                     Price = Money 123.0
-                    }}) "pouf"
+                    }
+        }
+        ) "availabilities 5 boulon"
+      } 
 
     testCase "universe exists (╭ರᴥ•́)" <| fun _ ->
       let subject = true

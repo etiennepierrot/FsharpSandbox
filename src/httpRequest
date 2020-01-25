@@ -1,0 +1,12 @@
+curl --location --request POST 'https://accounts.spotify.com/api/token' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--header 'Accept: application/json' \
+--header 'Authorization: Basic OTIyZGE2ZGM0MzRiNDhjOTkxZWQzYzI4NDVhZjE4OGY6MTg3N2UzOTRhYWY0NGUzYzg4OTQzZjRmYmMzOGI4ODg=' \
+--data-urlencode 'grant_type=authorization_code' \
+--data-urlencode 'code=AQAHVph3YphmYWuWwDtRHt-tiuGqsqnBueZ0kKBncOja8nT8832QMO3FiYAI9gGAmTqPIaPxPRqjt0zqTuodpYRK8wiy10_W0kZo6Hy3cvRJY571VdX1ftKRtE2yfMxV_e4_2OYz35sY0Pb2eDG5T6y6BNRPJNeI7QoY8-mEo8S6YDfaSmi6pu-2i1JzCpTOrsC6R3hT4ybI8z8' \
+--data-urlencode 'redirect_uri=https://enmbbv86wqdwd.x.pipedream.net'
+
+AQAHVph3YphmYWuWwDtRHt-tiuGqsqnBueZ0kKBncOja8nT8832QMO3FiYAI9gGAmTqPIaPxPRqjt0zqTuodpYRK8wiy10_W0kZo6Hy3cvRJY571VdX1ftKRtE2yfMxV_e4_2OYz35sY0Pb2eDG5T6y6BNRPJNeI7QoY8-mEo8S6YDfaSmi6pu-2i1JzCpTOrsC6R3hT4ybI8z8
+
+curl --location --request GET 'https://api.spotify.com/v1/playlists/0fF91CmIoQfDwzhlbiCEvw/tracks' \
+--header 'Authorization: Bearer BQD-YF2noMoRooZzaEOSPz7hhEAh93He9VYuqZifGNd79J2sQxd6zZfuSwYIxjdp7Gp_anfs6QZXs6pvKuXeAC7zGezxYZ7zdn-xzOAFCq9tc9uJMcN66dG3j0SKo00gMOpRgwLd0yvcbALxa46B'
