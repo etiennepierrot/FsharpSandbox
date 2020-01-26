@@ -18,7 +18,7 @@ module PlaylistFetcher =
             listener
 
     let runServer requestHandler =
-        HttpListener.Run("http://*:80/callback_spotify/",(fun req resp -> 
+        HttpListener.Run("http://*:80/callback_spotify/",fun req resp -> 
                 async {
                     printfn "Call start : %s" req.RawUrl
                     requestHandler req
@@ -26,23 +26,23 @@ module PlaylistFetcher =
                     resp.OutputStream.Write(out,0,out.Length)
                     resp.OutputStream.Close()
                 }
-            )) |> ignore
+            ) |> ignore
 
-    let workflow (req : HttpListenerRequest)  =
+    let listSongsPlaylist (req : HttpListenerRequest)  =
         let code = req.QueryString.["Code"]
         printfn "Authorization Code : %s" code
         let oauthToken = Authorization.GetAccessToken code
         printfn "AccessToken : %s" oauthToken.AccessToken 
         let playlists = SpotifyConnector.Playlist oauthToken.AccessToken
         playlists.Items
-        |> Array.map (fun x -> printfn "%s" x.Track.Name )
+        |> Array.map (fun x -> printfn "%s" x.Track.Name)
         |> ignore
 
     
     let Run =
         printfn "go to this url for getting authorizationCode"
         printfn "%s" Authorization.AuthorizeUrl
-        runServer workflow
+        runServer listSongsPlaylist
         Console.ReadKey()
      
     

@@ -36,17 +36,16 @@ module Model =
         let Rotate (ant : Ant) (square : Square) : Ant =
             let RotateLeft (ant : Ant) = match ant with
                                              | {Coordinate = _ ; Direction = North} -> {ant with Direction = West}
-                                             | {Coordinate = _ ; Direction = West} -> {ant with Direction = South}
+                                             | {Coordinate = _ ; Direction = West}  -> {ant with Direction = South}
                                              | {Coordinate = _ ; Direction = South} -> {ant with Direction = East}
-                                             | {Coordinate = _ ; Direction = East} -> {ant with Direction = North}
+                                             | {Coordinate = _ ; Direction = East}  -> {ant with Direction = North}
                                  
             let RotateRight (ant : Ant) = match ant with
                                              | {Coordinate = _ ; Direction = North} -> {ant with Direction = East}
-                                             | {Coordinate = _ ; Direction = East} -> {ant with Direction = South}
+                                             | {Coordinate = _ ; Direction = East}  -> {ant with Direction = South}
                                              | {Coordinate = _ ; Direction = South} -> {ant with Direction = West}
-                                             | {Coordinate = _ ; Direction = West} -> {ant with Direction = North}
-            let color = ColorPosition ant.Coordinate square
-            match color with
+                                             | {Coordinate = _ ; Direction = West}  -> {ant with Direction = North}
+            match ColorPosition ant.Coordinate square with
             | White -> RotateLeft ant
             | Black -> RotateRight ant
             
