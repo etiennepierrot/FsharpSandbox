@@ -29,42 +29,44 @@ module Model =
                      | c -> ColorPosition c square
         let (Square s) = square
         Array2D.mapi (fun x y _->  mapping {X=x; Y=y;}) s |> Square
-    let Move (ant : Ant) = match ant with
-                            | {Coordinate = _; Direction = North} ->
-                                { ant with Coordinate = { ant.Coordinate with Y = ant.Coordinate.Y + 1 } }
-                            | {Coordinate = _; Direction = West} ->
-                                { ant with Coordinate = { ant.Coordinate with X = ant.Coordinate.X - 1 } }
-                            | {Coordinate = _; Direction = South} ->
-                                { ant with Coordinate = { ant.Coordinate with Y = ant.Coordinate.Y - 1 } }
-                            | {Coordinate = _; Direction = East}  ->
-                                { ant with Coordinate = { ant.Coordinate with X = ant.Coordinate.X + 1 } }
+    
    
-    let RotateLeft (ant : Ant) = match ant with
-                                 | {Coordinate = _ ; Direction = North} -> {ant with Direction = West}
-                                 | {Coordinate = _ ; Direction = West} -> {ant with Direction = South}
-                                 | {Coordinate = _ ; Direction = South} -> {ant with Direction = East}
-                                 | {Coordinate = _ ; Direction = East} -> {ant with Direction = North}
+       
+    let Push (ant : Ant) (square : Square) =
+        let Rotate (ant : Ant) (square : Square) : Ant =
+            let RotateLeft (ant : Ant) = match ant with
+                                             | {Coordinate = _ ; Direction = North} -> {ant with Direction = West}
+                                             | {Coordinate = _ ; Direction = West} -> {ant with Direction = South}
+                                             | {Coordinate = _ ; Direction = South} -> {ant with Direction = East}
+                                             | {Coordinate = _ ; Direction = East} -> {ant with Direction = North}
                                  
-    let RotateRight (ant : Ant) = match ant with
-                                     | {Coordinate = _ ; Direction = North} -> {ant with Direction = East}
-                                     | {Coordinate = _ ; Direction = East} -> {ant with Direction = South}
-                                     | {Coordinate = _ ; Direction = South} -> {ant with Direction = West}
-                                     | {Coordinate = _ ; Direction = West} -> {ant with Direction = North}
-
-    let Rotate (ant : Ant) (square : Square) : Ant =
-        let color = ColorPosition ant.Coordinate square
-        match color with
-        | White -> RotateLeft ant
-        | Black -> RotateRight ant
-        
-    let Push (ant : Ant) (square : Square) = Rotate ant square |> Move
+            let RotateRight (ant : Ant) = match ant with
+                                             | {Coordinate = _ ; Direction = North} -> {ant with Direction = East}
+                                             | {Coordinate = _ ; Direction = East} -> {ant with Direction = South}
+                                             | {Coordinate = _ ; Direction = South} -> {ant with Direction = West}
+                                             | {Coordinate = _ ; Direction = West} -> {ant with Direction = North}
+            let color = ColorPosition ant.Coordinate square
+            match color with
+            | White -> RotateLeft ant
+            | Black -> RotateRight ant
+            
+        let Move (ant : Ant) = match ant with
+                                | {Coordinate = _; Direction = North} ->
+                                    { ant with Coordinate = { ant.Coordinate with Y = ant.Coordinate.Y + 1 } }
+                                | {Coordinate = _; Direction = West} ->
+                                    { ant with Coordinate = { ant.Coordinate with X = ant.Coordinate.X - 1 } }
+                                | {Coordinate = _; Direction = South} ->
+                                    { ant with Coordinate = { ant.Coordinate with Y = ant.Coordinate.Y - 1 } }
+                                | {Coordinate = _; Direction = East}  ->
+                                    { ant with Coordinate = { ant.Coordinate with X = ant.Coordinate.X + 1 } }
+        Rotate ant square |> Move
         
     let rec Play (n : int) (square : Square) (ant : Ant) =
         if (n = 0)
             then square
             else Play (n - 1) (SwitchColor ant.Coordinate square) (Push ant square)
 
-    let size = 10000
+    let size = 1000
     let square = GenerateSquare size
     let ant = {
         Direction = North
@@ -75,10 +77,7 @@ module Model =
             }
         }
     
-    Play 10000 square ant
-    SwitchColor { X = 3 ; Y = 3} square |> ignore
-    ColorPosition { X = 3 ; Y = 3} square |> ignore
-    Move { Direction = North; Coordinate = { X = 0; Y = 0; } } |> ignore
-    
+    let endSquare = Play 100 square ant 
+    printfn "%A" endSquare
     
     
