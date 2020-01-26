@@ -8,21 +8,19 @@ module Authorization =
     let contentTypes  = [ HttpContentTypes.Json ]
    
     let AuthorizeUrl = sprintf
-                           "https://accounts.spotify.com/authorize?client_id=%s&response_type=code&redirect_uri=%s"
+                           "https://accounts.spotify.com/authorize?client_id=%s&response_type=code&redirect_uri=%s&show_dialog=false"
                            Credentials.ClientIdSpotify Credentials.RedirectUri
 
     let Bearer accessToken = sprintf "Bearer %s" accessToken
   
     let GetAccessToken authorizationCode =
-        let headers       = [ 
-                          HttpRequestHeaders.BasicAuth ClientIdSpotify ClientSecretSpotify
-                          HttpRequestHeaders.Accept (String.concat ", " contentTypes)
-                          HttpRequestHeaders.ContentType HttpContentTypes.FormValues
-                        ]
-            
         Http.RequestString("https://accounts.spotify.com/api/token",
               httpMethod = "POST",
-              headers = headers,
+              headers = [ 
+                      HttpRequestHeaders.BasicAuth ClientIdSpotify ClientSecretSpotify
+                      HttpRequestHeaders.Accept (String.concat ", " contentTypes)
+                      HttpRequestHeaders.ContentType HttpContentTypes.FormValues
+                    ],
               body = FormValues [
                                  "grant_type", "authorization_code"
                                  "code", authorizationCode

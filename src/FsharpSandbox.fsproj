@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Antgame\Ant.fs" />
     <Compile Include="Spotify\Credentials.fs" />
     <Compile Include="Spotify\SampleListTracks.fs" />
     <Compile Include="Spotify\Authorization.fs" />
